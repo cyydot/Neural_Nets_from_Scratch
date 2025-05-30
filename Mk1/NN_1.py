@@ -2,7 +2,6 @@ import numpy as np
 import random
 
 def linear(input, weights, layer):
-    weights = np.array(weights)
     xx = np.append([1],input)
     row_len = len(xx)
     y = np.matmul(weights.reshape(layer, row_len), xx.reshape(row_len, 1))
@@ -27,12 +26,10 @@ def log_like(x_1, x_2): return x_1 * np.log(x_2) * -1
 def normalizer(input_samples):
     num_samples = len(input_samples)
     data = [x[0] for x in input_samples]
-    mnds = []
     for i in range(len(input_samples[0][0])):
         vals = [data[j][i] for j in range(num_samples)]
         minn = min(vals)
         dif = max(vals) - minn
-        mnds.append([minn, dif])
         for j in range(num_samples):
             input_samples[j][0][i] = (input_samples[j][0][i] - minn) / dif
     
@@ -55,7 +52,7 @@ def sequential(input_layer, weights, net_structure):
         nodes = net_structure[-1][1]
 
     y_prev = sequential(input_layer, weights[:-(nodes_prev + 1) * nodes], net_structure[:-1])
-    weights_here = weights[-(nodes_prev + 1) * nodes:]
+    weights_here = np.array(weights[-(nodes_prev + 1) * nodes:])
     return layers[net_structure[-1][0]](y_prev, weights_here, nodes)
 
 ###########################################################################################################
@@ -80,9 +77,7 @@ def loss(input_samples, weights, net_structure,):
 
 def gradient(input_samples, weights, net_structure, dx, stoc):
 
-    if stoc != len(input_samples):
-        input_samples = random.sample(input_samples, stoc)
-
+    if stoc != len(input_samples): input_samples = random.sample(input_samples, stoc)
     grad = []
     num_weights = len(weights)
 
