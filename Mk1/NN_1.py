@@ -36,7 +36,7 @@ def normalizer(input_samples):
         for j in range(num_samples):
             input_samples[j][0][i] = (input_samples[j][0][i] - minn) / dif
     
-    return [input_samples, mnds]
+    return input_samples
 
 ###########################################################################################################
 ###########################################################################################################
