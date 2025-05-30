@@ -1,5 +1,6 @@
 import numpy as np
 import NN_1 as NN
+import copy.deepcopy as deepcopy
 
 
 data = np.loadtxt('data_1.2.csv', delimiter=",", dtype=str)
@@ -8,12 +9,12 @@ for idx in range(0,254):
     x = [ float(data[idx][i]) for i in range(0, 33)]
     y = [1,0] if data[idx][33] == 'b' else [0,1]
     org.append([x,y])
-org = NN.normalizer(org)  
+orgnor = NN.normalizer(deepcopy(org))
 
 
 net = [["relu", 20], ["relu", 10], ["softmax", 2]]
-weights = NN.gradient_descent(org[:-50], net, 15, 100, -0.9, 0.9, 0.00001, 0.0005, 100)
-model = NN.NN(weights, net)
+weights = NN.gradient_descent(orgnor[0][:-50], net, 15, 100, -0.9, 0.9, 0.00001, 0.0005, 100)
+model = NN.NN(weights, net, orgnor[1])
 
 
 perc = 0
