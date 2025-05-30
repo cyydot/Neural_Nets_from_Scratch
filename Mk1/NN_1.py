@@ -32,8 +32,9 @@ def normalizer(input_samples):
         dif = max(vals) - minn
         for j in range(num_samples):
             input_samples[j][0][i] = (input_samples[j][0][i] - minn) / dif
-    
     return input_samples
+
+def input_normalizer(input, mnds): return [(input[i] - mnds[i][0]) / mnds[i][1] for i in range(len(input))] 
 
 ###########################################################################################################
 ###########################################################################################################
@@ -144,6 +145,6 @@ def gradient_descent(input_samples, net_structure, runs, iters, w_start, w_stop,
 ###########################################################################################################
 ###########################################################################################################
 
-def NN(weights, net_structure):
-    def actual(x): return sequential(x, weights, net_structure)
+def NN(weights, net_structure, mnds):
+    def actual(x): return sequential(input_normalizer(x, mnds), weights, net_structure)
     return actual
