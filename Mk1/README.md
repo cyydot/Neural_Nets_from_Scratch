@@ -8,11 +8,14 @@ NN_1.py
   feed forward, fully connected neural networks. It's sections are as follows:
 
   1. This section contains the imports (numpy and random), code for the network layers, and
-     code for cumputing the loss function. So far there are only three layer types: "linear",
+     code for computing the loss function. So far there are only three layer types: "linear",
      which performs matrix multiplcaton with no activation function, "relu", which performs a
      matrix multiplication followed by a ReLU activation, and "softmax", which has softmax as
-     its activation function. Least Squares and Log-likelihood are used as 
-  3. 
+     its activation function. Least Squares and Log-likelihood are used as loss functions.
+     
+  3. The normalizer function takes in the input data and restructures it so that every value
+     is between 0 and 1. At the moment, this function isn't used within NN_1.py, only in the
+     test files. 
 
 
 
