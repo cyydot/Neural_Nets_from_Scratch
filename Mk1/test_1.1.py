@@ -12,12 +12,12 @@ org = NN.normalizer(org)
 
 
 net = [["relu", 2], ["softmax", 2]]
-weights = NN.gradient_descent(org[0][:-72], net, 10, 10, -10, 10, 0.001, 0.001, 200)
+weights = NN.gradient_descent(org[:-72], net, 10, 10, -10, 10, 0.001, 0.001, 200)
 model = NN.NN(weights, net)
 
 
 perc = 0
-for point in org[0][-72:]:
+for point in org[-72:]:
     
     probs = model(point[0])
     print("x = " + str(point[0]))
