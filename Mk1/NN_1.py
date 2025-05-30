@@ -1,15 +1,5 @@
 import numpy as np
 import random
-import scipy.special as scp
-
-
-def relu(input, weights, layer):
-    weights = np.array(weights)
-    xx = np.append([1],input)
-    row_len = len(xx)
-    y = np.matmul(weights.reshape(layer, row_len), xx.reshape(row_len, 1))
-    y = y.flatten()
-    return [x if x > 0 else 0 for x in y]   
 
 def linear(input, weights, layer):
     weights = np.array(weights)
@@ -18,14 +8,12 @@ def linear(input, weights, layer):
     y = np.matmul(weights.reshape(layer, row_len), xx.reshape(row_len, 1))
     return y.flatten()
 
-def softmax(input, weights, layer):
-    weights = np.array(weights) 
-    xx = np.append([1],input)
-    row_len = len(xx)
-    y = np.matmul(weights.reshape(layer, row_len), xx.reshape(row_len, 1))
-    y = y.flatten()
+def relu(input, weights, layer):
+    return [x if x > 0 else 0 for x in linear(input, weights, layer)]   
 
-    return scp.softmax(y)
+def softmax(input, weights, layer):
+    y = linear(input, weights, layer)
+    return np.exp(y)/sum(np.exp(y))
 
 layers = {"relu":relu, "linear":linear, "softmax":softmax}
     
@@ -164,7 +152,5 @@ def gradient_descent(input_samples, net_structure, runs, iters, w_start, w_stop,
 ###########################################################################################################
 
 def NN(weights, net_structure):
-    def actual(x):
-        # return sequential(input_normalizer(x, mnms), weights, net_structure)
-        return sequential(x, weights, net_structure)
+    def actual(x): return sequential(x, weights, net_structure)
     return actual
