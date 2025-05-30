@@ -13,10 +13,15 @@ NN_1.py
      matrix multiplication followed by a ReLU activation, and "softmax", which has softmax as
      its activation function. Least Squares and Log-likelihood are used as loss functions.
      
-  3. The normalizer function takes in the input data and restructures it so that every value
+  2. The normalizer function takes in the input data and restructures it so that every value
      is between 0 and 1. At the moment, this function isn't used within NN_1.py, only in the
-     test files. 
+     test files.
+     
+     * This is also the first appearance of the variable input_samples, which stores the test
+       samples for training. It is assumed to be formatted [xlist, ylist], where xlist is a
+       list of input values, and ylist is the list of output values.
 
+  3. 
 
 
 
