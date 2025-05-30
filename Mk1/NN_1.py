@@ -26,13 +26,15 @@ def log_like(x_1, x_2): return x_1 * np.log(x_2) * -1
 def normalizer(input_samples):
     num_samples = len(input_samples)
     data = [x[0] for x in input_samples]
+    mnds = []
     for i in range(len(input_samples[0][0])):
         vals = [data[j][i] for j in range(num_samples)]
         minn = min(vals)
         dif = max(vals) - minn
+        mnds.append([minn, dif])
         for j in range(num_samples):
             input_samples[j][0][i] = (input_samples[j][0][i] - minn) / dif
-    return input_samples
+    return [input_samples, mnds]
 
 def input_normalizer(input, mnds): return [(input[i] - mnds[i][0]) / mnds[i][1] for i in range(len(input))] 
 
@@ -100,7 +102,6 @@ def gradient_descent(input_samples, net_structure, runs, iters, w_start, w_stop,
         nweights = nweights + (prev + 1)*layer[1]
         prev = layer[1]
 
-
     values = (w_start - w_stop) * np.random.rand(nweights) + w_stop
     f_min = loss(input_samples, values, net_structure)
 
@@ -109,7 +110,6 @@ def gradient_descent(input_samples, net_structure, runs, iters, w_start, w_stop,
         print("run = " + str(i + 1))
         
         x = (w_start - w_stop) * np.random.rand(nweights) + w_stop 
-
         y = loss(input_samples, x, net_structure)
         print("y = " + str(y))
         grad = gradient(input_samples, x, net_structure, dx, stoc)
