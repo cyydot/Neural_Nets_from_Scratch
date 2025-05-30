@@ -1,6 +1,6 @@
 import numpy as np
 import NN_1 as NN
-import copy
+import copy.deepcopy as deepcopy
 
 
 data = np.loadtxt('data_1.1.csv', delimiter=",", dtype=float)
@@ -9,7 +9,7 @@ for sample in data:
     x = [sample[1], sample[2]]
     y = [1,0] if sample[3] == -1.0 else [0,1]
     org.append([x,y])
-orgnor = NN.normalizer(copy.deepcopy(org))
+orgnor = NN.normalizer(deepcopy(org))
 
 
 net = [["relu", 2], ["softmax", 2]]
