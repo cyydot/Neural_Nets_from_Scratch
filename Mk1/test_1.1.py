@@ -1,5 +1,6 @@
 import numpy as np
 import NN_1 as NN
+import copy
 
 
 data = np.loadtxt('data_1.1.csv', delimiter=",", dtype=float)
@@ -8,12 +9,12 @@ for sample in data:
     x = [sample[1], sample[2]]
     y = [1,0] if sample[3] == -1.0 else [0,1]
     org.append([x,y])
-org = NN.normalizer(org)
+orgnor = NN.normalizer(copy.deepcopy(org))
 
 
 net = [["relu", 2], ["softmax", 2]]
-weights = NN.gradient_descent(org[:-72], net, 10, 10, -10, 10, 0.001, 0.001, 200)
-model = NN.NN(weights, net)
+weights = NN.gradient_descent(orgnor[0][:-72], net, 10, 10, -10, 10, 0.001, 0.001, 200)
+model = NN.NN(weights, net, orgnor[1])
 
 
 perc = 0
