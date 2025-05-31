@@ -145,6 +145,6 @@ def gradient_descent(input_samples, net_structure, runs, iters, w_start, w_stop,
 ###########################################################################################################
 ###########################################################################################################
 
-def NN(weights, net_structure, mnds):
-    def actual(x): return sequential(input_normalizer(x, mnds), weights, net_structure)
+def NN(weights, net_structure):
+    def actual(x): return sequential(x, weights, net_structure)
     return actual
