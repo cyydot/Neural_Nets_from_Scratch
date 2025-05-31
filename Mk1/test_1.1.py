@@ -14,13 +14,13 @@ orgnor = NN.normalizer(deepcopy(org))
 
 net = [["relu", 2], ["softmax", 2]]
 weights = NN.gradient_descent(orgnor[0][:-72], net, 10, 10, -10, 10, 0.001, 0.001, 200)
-model = NN.NN(weights, net, orgnor[1])
+model = NN.NN(weights, net)
 
 
 perc = 0
 for point in org[-72:]:
     
-    probs = model(point[0])
+    probs = model(NN.input_normalizer(point[0], orgnor[1])
     print("x = " + str(point[0]))
     print("y' = " + str(probs))
     
