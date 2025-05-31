@@ -67,6 +67,19 @@ data_1.x.csv
 
 # Intended Use
 
+Here is the intended process to use this architecture.
+
+  1. Fit data into a list of the form
+       data = [[sampleinput1, sampleprediction1], ..., [sampleinputN, samplepredictionN]].
+     
+  if data isn't normalized, run the normalizer:
+       nordata = NN.normalizer(copy.deepcopy(data)
+     
+  3. Describe network topology with list of the form
+       net = ["layer1", n1], ["layer2", n2], ..., ["layerN", nN]].
+     
+  4. find optimized weights by running gradient_descent:
+       weights = gradient_descent(
 
 
 # Future Updates
