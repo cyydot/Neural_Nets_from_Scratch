@@ -69,17 +69,28 @@ data_1.x.csv
 
 Here is the intended process to use this architecture.
 
-  1. Fit data into a list of the form
+  1. Fit training data into a list of the form
        data = [[sampleinput1, sampleprediction1], ..., [sampleinputN, samplepredictionN]].
+
+    * if data isn't normalized, run the normalizer:
+      nordata = NN.normalizer(copy.deepcopy(data))
+       
      
-  if data isn't normalized, run the normalizer:
-       nordata = NN.normalizer(copy.deepcopy(data)
-     
-  3. Describe network topology with list of the form
+  2. Describe network topology with list of the form
        net = ["layer1", n1], ["layer2", n2], ..., ["layerN", nN]].
      
-  4. find optimized weights by running gradient_descent:
-       weights = gradient_descent(
+  3. find optimized weights by running gradient_descent:
+       weights = gradient_descent(data, net, 10,50, -1, 1, 0.001, 0.001, len(data))
+
+    *  weights = gradient_descent(nordata[0], net, 10,50, -1, 1, 0.001, 0.001, len(nordata[0]))
+
+  5. create the neural network:
+       model = NN.NN(weights, net)
+
+  6. predict!
+       model(x)
+
+    *  model(NN.input_normalizer(x, nordata[1]))
 
 
 # Future Updates
